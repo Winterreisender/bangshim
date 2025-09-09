@@ -5,13 +5,12 @@ Make scripts with shebang executable in Windows by adding [shim](https://docs.ch
 ## Usage
 1. Install bangshim with [uv](https://docs.astral.sh/uv/)
 ```sh
-uv tool install --from git+https://github.com/Winterreisender/bangshim bangshim
+uv tool install bangshim
 ```
 or pip
 ```sh
-pip install git+https://github.com/Winterreisender/bangshim
+pip install bangshim
 ```
-We'll publish bangshim to PyPI soon.  
 It's also recommended to install [uutils/coreutils](https://github.com/uutils/coreutils) for the `env` in shebang
 
 2. Write any script with [shebang](https://www.in-ulm.de/~mascheck/various/shebang/), supposing you have an intepreter (Git Bash, MSYS2, etc.) installed for your scripts.
