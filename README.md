@@ -6,7 +6,11 @@
 Make scripts with shebang executable in Windows by adding [shim](https://docs.chocolatey.org/en-us/features/shim/).
 
 ## Usage
-1. Install bangshim with [uv](https://docs.astral.sh/uv/)
+1. Install bangshim with scoop
+```sh
+scoop install https://github.com/Winterreisender/bangshim/blob/master/bangshim.json
+```
+or uv
 ```sh
 uv tool install bangshim
 ```
