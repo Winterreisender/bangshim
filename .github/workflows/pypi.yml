@@ -1,0 +1,42 @@
+name: Publish to PyPI
+
+on:
+    workflow_dispatch:
+    release:
+      types: [published]
+
+        
+permissions:
+  contents: read
+  id-token: write
+  
+jobs:
+  build:
+    environment: pypi_publish
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.13']
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: astral-sh/setup-uv@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Generate version
+      run: make version
+
+    - run: uv sync --frozen
+    - run: uv build
+    - run: uv publish
+
+    - name: Upload Wheels
+      uses: actions/upload-artifact@v4
+      with:
+        name: wheels-${{matrix.python-version}}
+        path: dist/*
