@@ -33,7 +33,7 @@ def parse_shebang(shebang_line :str) -> List[str]:
     argv = shebang_line.removeprefix("!#").removesuffix("\n").split(" ")
     return argv
 
-def main(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, quiet :bool):
+def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, quiet :bool):
     match (quiet, verbose):
         case True, _:
             logging.basicConfig(level=logging.CRITICAL)
@@ -42,7 +42,7 @@ def main(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, quie
         case _,_:
             logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(PROG_NAME)
-    logger.debug(f"{prog_arg=}")
+    # logger.debug(f"{prog_arg=}")
 
     script_path = script_path.expanduser().resolve()
     with open(script_path, "r", encoding="utf-8") as f:
@@ -81,15 +81,17 @@ def main(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, quie
         copy(shim_exe_src, shim_exe_path)
 
 
-
-if __name__=='__main__':
+def main():
     argparser = argparse.ArgumentParser(PROG_NAME) # Still need a better type annotion for argparser, but no good solutions
     argparser.add_argument("script_path", type=Path, help="The path of you script")
     argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="Show what would happen, but do not make changes")
     argparser.add_argument("--verbose", '-v', type=bool, default=False, help="Show more info")
-    argparser.add_argument("--quiet"  , '-q', type=bool, default=False, help="Show more info")
+    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="Show less info")
     argparser.add_argument("--no-clobber", type=bool, default=False, help="Do not overwrite existing files")
     # argparser.add_argument("--interactive", '-i', type=bool, default=False, help="Choose intepreter interactively when there's more than one inteprater found")
     prog_arg = vars(argparser.parse_args())
     
-    main(**prog_arg)
+    bangshim(**prog_arg)
+    
+if __name__=='__main__':
+    main()

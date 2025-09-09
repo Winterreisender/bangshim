@@ -14,13 +14,17 @@ wheels = [
 [[package]]
 name = "bangshim"
 version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
+source = { editable = "." }
+
+[package.dev-dependencies]
+dev = [
     { name = "pyinstaller" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pyinstaller", specifier = ">=6.15.0" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pyinstaller", specifier = ">=6.15.0" }]
 
 [[package]]
 name = "macholib"

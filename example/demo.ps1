@@ -1,3 +1,3 @@
 #!/usr/bin/powershell
 
-echo Hello World
+echo "Hello World From Powershell"

@@ -18,6 +18,14 @@ Hello World
 A: We suppose you installed an `env.exe` in your `PATH`. For example, you can install [uutils/coreutils](https://github.com/uutils/coreutils) by `scoop install uutils-coreutils`
 
 
+## Build
+
+See [Makefile](Makefile) for more information
+
+```sh
+
+```
+
 ## Credit
 1. `shim.exe` from [kiennq/scoop-better-shimexe](https://github.com/kiennq/scoop-better-shimexe)
 

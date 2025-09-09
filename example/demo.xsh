@@ -1,3 +1,3 @@
 #!/usr/bin/env xonsh
 
-echo Hello World
+echo Hello World from Xonsh

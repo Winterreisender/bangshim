@@ -1,2 +1,2 @@
-path = "C:\Users\guest_blmsaex\scoop\shims\sh.EXE"
-args = C:\home\code\github\bang-shim\example\demo.sh
+path = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.EXE"
+args = C:\home\code\github\bang-shim\example\demo.ps1
