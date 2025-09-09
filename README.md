@@ -8,7 +8,7 @@ Make scripts with shebang executable in Windows by adding [shim](https://docs.ch
 ## Usage
 1. Install bangshim with scoop
 ```sh
-scoop install https://github.com/Winterreisender/bangshim/blob/master/bangshim.json
+scoop install https://raw.githubusercontent.com/Winterreisender/bangshim/refs/heads/master/bangshim.json
 ```
 or uv
 ```sh
