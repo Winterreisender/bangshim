@@ -1,4 +1,7 @@
 # BanG Shim!
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/bangshim)](https://pypi.org/project/bangshim)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bangshim.svg)](https://pypi.org/project/bangshim)
+![GitHub Created At](https://img.shields.io/github/created-at/Winterreisender/bangshim)
 
 Make scripts with shebang executable in Windows by adding [shim](https://docs.chocolatey.org/en-us/features/shim/).
 
