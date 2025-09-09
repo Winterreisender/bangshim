@@ -1,4 +1,6 @@
 ENTRY_POINT=src/bangshim/bangshim.py
+VERSION := $(shell uvx dunamai from git --bump --no-metadata --style pep440)
+
 
 run:
 	uv run bangshim ./example/demo.ps1
@@ -16,6 +18,10 @@ test: ./dist/bangshim.exe ./example/demo.sh
 
 install:
 	uv tool install .
+
+.PHONY: version
+version:
+	uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $(VERSION)
 
 clean: ./build ./dist
 	rm -rf ./build ./dist
