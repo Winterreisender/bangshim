@@ -1,11 +1,15 @@
-<center><h1>BanG Shim!</h1></center>
-<center><img src='asset/banner.jpg' width="33%"/></center>
+<div align="center" >
+    
+# BanG Shim!
+<img src='asset/banner.jpg' width="33%"/>
 
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/bangshim)](https://pypi.org/project/bangshim)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bangshim.svg)](https://pypi.org/project/bangshim)
 ![GitHub Created At](https://img.shields.io/github/created-at/Winterreisender/bangshim)
 
 Make scripts with shebang executable in Windows by adding [shim](https://docs.chocolatey.org/en-us/features/shim/).
+
+</div>
 
 ## Usage
 1. Install bangshim with [scoop](https://scoop.sh/)
