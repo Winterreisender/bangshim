@@ -6,7 +6,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/Winterreisender/bangshim/releases/download/v0.1.0/bangshim.exe",
-            "hash": "sha256:366c85ab560e64e8864aa61cf0a12d6d29d0efa258a2899323f6b24894598336"
+            "hash": "sha256:646513fc7e3fdad35bfa14a21696d49fa4377fd54cf69396169b30fd0eba39a1"
         }
     },
     "bin": "bangshim.exe",
