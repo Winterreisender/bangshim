@@ -10,7 +10,7 @@ build:
 	uv build
 
 dist:
-	uv run pyinstaller --name=bangshim --add-data "src/bangshim/asset:bangshim/asset" -F $(ENTRY_POINT)
+	uv run pyinstaller --name=bangshim -i asset/icon.ico --add-data "src/bangshim/asset:bangshim/asset" -F $(ENTRY_POINT)
 
 test: ./dist/bangshim.exe ./example/demo.sh
 	./dist/bangshim.exe ./example/demo.sh
@@ -29,3 +29,6 @@ clean: ./build ./dist
 	rm example/*.shim
 	rm example/*.exe
 	uv tool uninstall bangshim
+
+update:
+	uv sync --upgrade

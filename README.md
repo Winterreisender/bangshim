@@ -1,4 +1,6 @@
-# BanG Shim!
+<center><h1>BanG Shim!</h1></center>
+<center><img src='asset/banner.jpg' width="33%"/></center>
+
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/bangshim)](https://pypi.org/project/bangshim)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bangshim.svg)](https://pypi.org/project/bangshim)
 ![GitHub Created At](https://img.shields.io/github/created-at/Winterreisender/bangshim)
