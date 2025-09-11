@@ -1,6 +1,6 @@
 <div align="center" >
     
-# BanG Shim!
+# #BanG Shim!
 <img src='asset/banner.jpg' width="33%"/>
 
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/bangshim)](https://pypi.org/project/bangshim)

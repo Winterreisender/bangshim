@@ -5,7 +5,7 @@ import argparse
 import logging
 from importlib import resources
 
-PROG_NAME="BanG Shim!"
+PROG_NAME="#BanG Shim!"
 MAX_SHEBANG_LENGTH=127 # Reference: https://www.in-ulm.de/~mascheck/various/shebang/
 
 def generate_shim_config(exe_path :Path, args: List[str]) -> str:
