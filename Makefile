@@ -11,6 +11,7 @@ build:
 
 dist:
 	uv run pyinstaller --name=bangshim -i asset/icon.ico --add-data "src/bangshim/asset:bangshim/asset" -F $(ENTRY_POINT)
+	sha256sum dist/bangshim.exe
 
 test: ./dist/bangshim.exe ./example/demo.sh
 	./dist/bangshim.exe ./example/demo.sh
