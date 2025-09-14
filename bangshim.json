@@ -1,5 +1,5 @@
 {
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Make scripts with shebang executable in Windows by adding shim",
     "homepage": "https://github.com/Winterreisender/bangshim",
     "license": "MIT",
