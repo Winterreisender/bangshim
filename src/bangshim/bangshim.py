@@ -6,6 +6,7 @@ import logging
 from importlib import resources
 
 PROG_NAME="#BanG Shim!"
+PROG_SLUG="bangshim"
 MAX_SHEBANG_LENGTH=127 # Reference: https://www.in-ulm.de/~mascheck/various/shebang/
 
 def generate_shim_config(exe_path :Path, args: List[str]) -> str:
@@ -82,7 +83,7 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
 
 
 def main():
-    argparser = argparse.ArgumentParser(PROG_NAME) # Still need a better type annotion for argparser, but no good solutions
+    argparser = argparse.ArgumentParser(PROG_SLUG) # Still need a better type annotion for argparser, but no good solutions
     argparser.add_argument("script_path", type=Path, help="The path of you script")
     argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="Show what would happen, but do not make changes")
     argparser.add_argument("--verbose", '-v', type=bool, default=False, help="Show more info")
