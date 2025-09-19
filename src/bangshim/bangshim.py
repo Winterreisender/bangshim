@@ -1,25 +1,25 @@
-from typing import List, Tuple
 from pathlib import Path
 from shutil import which, copy
 import argparse
 import logging
 from importlib import resources
+from collections.abc import Iterable
 
 PROG_NAME="#BanG Shim!"
 PROG_SLUG="bangshim"
 MAX_SHEBANG_LENGTH=127 # Reference: https://www.in-ulm.de/~mascheck/various/shebang/
 
-def generate_shim_config(exe_path :Path, args: List[str]) -> str:
+def generate_shim_config(exe_path :str, args: Iterable[str]) -> str:
     args = ' '.join(args)
     return f""" path = "{exe_path}"\nargs = {args} """.strip()
 
-def shebang_mapping(argv :List[str]) -> Tuple[str, str]:
+def shebang_mapping(argv :list[str]) -> tuple[str, list[str]]:
     exe_path, *arg = argv
-    
+
     # exe_path = Path(exe_path).expanduser().resolve() # Do we really need .expanduser().resolve()?
     # if Path(exe_path).expanduser().resolve().exists():
     #     return str(exe_path), arg
-    # elif exee
+    # elif exe
 
     cmd = Path(exe_path).name
     exe_path = which(cmd)
@@ -27,7 +27,7 @@ def shebang_mapping(argv :List[str]) -> Tuple[str, str]:
     return exe_path, arg
 
 
-def parse_shebang(shebang_line :str) -> List[str]:
+def parse_shebang(shebang_line :str) -> list[str]:
     """
     Parse and split the shebang line and return the argv
     """
@@ -47,7 +47,7 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
 
     script_path = script_path.expanduser().resolve()
     with open(script_path, "r", encoding="utf-8") as f:
-        shebang_line = f.readline(MAX_SHEBANG_LENGTH) 
+        shebang_line = f.readline(MAX_SHEBANG_LENGTH)
     assert shebang_line[:2] == "#!", 'Invalid shebang line'
     logger.debug(f"parse_shebang_line: {shebang_line=}")
 
@@ -68,12 +68,13 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
         else:
             logging.warning(f"{shim_confg_path} or {shim_exe_path} already exists, overwriting...")
 
+    shim_config = generate_shim_config(interpreter_path, args+[str(script_path),])
+
     if dry_run:
         print(f"Wrtting these content to {shim_confg_path}")
         print(shim_config)
         exit(0)
-    
-    shim_config = generate_shim_config(interpreter_path, args+[str(script_path),])
+
     logger.info(f"generated shim config:\n{shim_config}")
     with open(shim_confg_path, 'w', encoding='utf-8') as f:
         f.write(shim_config)
@@ -84,15 +85,15 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
 
 def main():
     argparser = argparse.ArgumentParser(PROG_SLUG) # Still need a better type annotion for argparser, but no good solutions
-    argparser.add_argument("script_path", type=Path, help="The path of you script")
-    argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="Show what would happen, but do not make changes")
-    argparser.add_argument("--verbose", '-v', type=bool, default=False, help="Show more info")
-    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="Show less info")
-    argparser.add_argument("--no-clobber", type=bool, default=False, help="Do not overwrite existing files")
-    # argparser.add_argument("--interactive", '-i', type=bool, default=False, help="Choose intepreter interactively when there's more than one inteprater found")
+    argparser.add_argument("script_path", type=Path, help="the path of your script")
+    argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="show what would happen, but do not make changes")
+    argparser.add_argument("--verbose", '-v', type=bool, default=False, help="show more info")
+    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="show less info")
+    argparser.add_argument("--no-clobber", type=bool, default=False, help="do not overwrite existing files")
+    # argparser.add_argument("--interactive", '-i', type=bool, default=False, help="choose intepreter interactively when there's more than one inteprater found")
     prog_arg = vars(argparser.parse_args())
-    
+
     bangshim(**prog_arg)
-    
+
 if __name__=='__main__':
     main()
