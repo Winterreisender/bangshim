@@ -95,7 +95,7 @@ def bangshim(script_name :str, dry_run :bool, verbose: bool, no_clobber :bool, q
 
 def main():
     argparser = argparse.ArgumentParser(PROG_SLUG) # Still need a better type annotion for argparser, but no good solutions
-    argparser.add_argument("script_path", type=str, help="the path or name of your script")
+    argparser.add_argument("script_name", type=str, help="the path or name of your script")
     argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="show what would happen, but do not make changes")
     argparser.add_argument("--verbose", '-v', type=bool, default=False, help="show more info")
     argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="show less info, no interacting")
