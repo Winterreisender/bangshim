@@ -34,7 +34,7 @@ def parse_shebang(shebang_line :str) -> list[str]:
     argv = shebang_line.removeprefix("!#").removesuffix("\n").split(" ")
     return argv
 
-def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, quiet :bool):
+def bangshim(script_name :str, dry_run :bool, verbose: bool, no_clobber :bool, quiet :bool, no_path :bool):
     match (quiet, verbose):
         case True, _:
             logging.basicConfig(level=logging.CRITICAL)
@@ -45,8 +45,19 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
     logger = logging.getLogger(PROG_NAME)
     # logger.debug(f"{prog_arg=}")
 
-    script_path = script_path.expanduser().resolve()
-    with open(script_path, "r", encoding="utf-8") as f:
+    script_path_abs = Path(script_name).expanduser().resolve()
+
+    # Search in PATH
+    if not no_path and not script_path_abs.exists():
+        script_name_which = which(script_name)
+        if script_name_which is None:
+            logging.error(f"script not found and not in PATH")
+            exit(2)
+        script_path_abs = Path(script_name_which).expanduser().resolve()
+
+    assert script_path_abs.exists()
+
+    with open(script_path_abs, "r", encoding="utf-8") as f:
         shebang_line = f.readline(MAX_SHEBANG_LENGTH)
     assert shebang_line[:2] == "#!", 'Invalid shebang line'
     logger.debug(f"parse_shebang_line: {shebang_line=}")
@@ -55,11 +66,10 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
     logger.debug(f"parse_shebang: {argv=}")
 
     interpreter_path, args = shebang_mapping(argv)
-    logger.debug(f"shebang_mapping: {interpreter_path=} {args=} {script_path=}")
+    logger.debug(f"shebang_mapping: {interpreter_path=} {args=} {script_path_abs=}")
 
-
-    shim_confg_path = script_path.with_suffix(".shim")
-    shim_exe_path   = script_path.with_suffix(".exe")
+    shim_confg_path = script_path_abs.with_suffix(".shim")
+    shim_exe_path   = script_path_abs.with_suffix(".exe")
     logger.debug(f"{shim_confg_path=} {shim_exe_path=}")
     if (shim_confg_path.exists() or shim_exe_path.exists()):
         if no_clobber:
@@ -68,7 +78,7 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
         else:
             logging.warning(f"{shim_confg_path} or {shim_exe_path} already exists, overwriting...")
 
-    shim_config = generate_shim_config(interpreter_path, args+[str(script_path),])
+    shim_config = generate_shim_config(interpreter_path, args+[str(script_path_abs),])
 
     if dry_run:
         print(f"Wrtting these content to {shim_confg_path}")
@@ -85,11 +95,12 @@ def bangshim(script_path :Path, dry_run :bool, verbose: bool, no_clobber :bool, 
 
 def main():
     argparser = argparse.ArgumentParser(PROG_SLUG) # Still need a better type annotion for argparser, but no good solutions
-    argparser.add_argument("script_path", type=Path, help="the path of your script")
+    argparser.add_argument("script_path", type=str, help="the path or name of your script")
     argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="show what would happen, but do not make changes")
     argparser.add_argument("--verbose", '-v', type=bool, default=False, help="show more info")
-    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="show less info")
+    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="show less info, no interacting")
     argparser.add_argument("--no-clobber", type=bool, default=False, help="do not overwrite existing files")
+    argparser.add_argument("--no-path", type=bool, default=False, help="do not search in path if not found")
     # argparser.add_argument("--interactive", '-i', type=bool, default=False, help="choose intepreter interactively when there's more than one inteprater found")
     prog_arg = vars(argparser.parse_args())
 

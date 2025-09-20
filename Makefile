@@ -1,4 +1,4 @@
-ENTRY_POINT=src/bangshim/bangshim.py
+ENTRY_POINT="src/bangshim/bangshim.py"
 VERSION := $(shell uvx dunamai from git --bump --no-metadata --style pep440)
 
 
