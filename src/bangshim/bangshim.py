@@ -4,6 +4,8 @@ import argparse
 import logging
 from importlib import resources
 from collections.abc import Iterable
+from sys import exit
+import os
 
 PROG_NAME="#BanG Shim!"
 PROG_SLUG="bangshim"
@@ -49,10 +51,11 @@ def bangshim(script_name :str, dry_run :bool, verbose: bool, no_clobber :bool, q
 
     # Search in PATH
     if not no_path and not script_path_abs.exists():
-        script_name_which = which(script_name)
+        script_name_which = which(script_name, mode=os.F_OK)
         if script_name_which is None:
-            logging.error(f"script not found and not in PATH")
+            logging.error(f"{script_name} not found and not in PATH")
             exit(2)
+        logging.info(f"found {script_name} in PATH: {script_name_which}")
         script_path_abs = Path(script_name_which).expanduser().resolve()
 
     assert script_path_abs.exists()
@@ -96,11 +99,11 @@ def bangshim(script_name :str, dry_run :bool, verbose: bool, no_clobber :bool, q
 def main():
     argparser = argparse.ArgumentParser(PROG_SLUG) # Still need a better type annotion for argparser, but no good solutions
     argparser.add_argument("script_name", type=str, help="the path or name of your script")
-    argparser.add_argument("--dry-run", "--what-if", type=bool, default=False, help="show what would happen, but do not make changes")
-    argparser.add_argument("--verbose", '-v', type=bool, default=False, help="show more info")
-    argparser.add_argument("--quiet"  , '-q', type=bool, default=True, help="show less info, no interacting")
-    argparser.add_argument("--no-clobber", type=bool, default=False, help="do not overwrite existing files")
-    argparser.add_argument("--no-path", type=bool, default=False, help="do not search in path if not found")
+    argparser.add_argument("--dry-run", "--what-if", action="store_true", default=False, help="show what would happen, but do not make changes")
+    argparser.add_argument("--verbose", '-v', action="store_true", default=False, help="show more info")
+    argparser.add_argument("--quiet"  , '-q', action="store_true", default=False, help="show less info, no interacting")
+    argparser.add_argument("--no-clobber", action="store_true", default=False, help="do not overwrite existing files")
+    argparser.add_argument("--no-path", action="store_true", default=False, help="do not search in path if not found")
     # argparser.add_argument("--interactive", '-i', type=bool, default=False, help="choose intepreter interactively when there's more than one inteprater found")
     prog_arg = vars(argparser.parse_args())
 
