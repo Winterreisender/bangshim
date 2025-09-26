@@ -11,7 +11,7 @@ Make scripts with shebang executable in Windows by adding [shim](https://docs.ch
 
 </div>
 
-## Usage
+## Quick Start
 1. Install bangshim with [scoop](https://scoop.sh/)
     ```sh
     scoop install https://raw.githubusercontent.com/Winterreisender/bangshim/refs/heads/master/bangshim.json
@@ -29,7 +29,7 @@ Make scripts with shebang executable in Windows by adding [shim](https://docs.ch
 2. Write any script with [shebang](https://www.in-ulm.de/~mascheck/various/shebang/), supposing you have an intepreter (Git Bash, MSYS2, Python,etc.) installed in `PATH` for your scripts.
     
     ```python
-    #!/usr/bin/sh
+    #!/usr/bin/python
     print("Hello World")
     ```
 
@@ -39,7 +39,9 @@ Make scripts with shebang executable in Windows by adding [shim](https://docs.ch
     ./myscript
     # "Hello World"
     ```
+## More Usage
 
+1. Search your script in `PATH` and make it executable. Supposing your have a `my_script.js` with a Node.js shebang. You can simply run `bangshim my_script.js`. Then you can call `my_script` in your console directly. 
 
 ## FAQ
 
@@ -76,4 +78,5 @@ See [Makefile](Makefile) for more information
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
 
