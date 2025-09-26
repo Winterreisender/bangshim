@@ -1,6 +1,6 @@
 <div align="center" >
     
-# #BanG Shim!
+# #Bang Shim!
 <img src='asset/banner.jpg' width="33%"/>
 
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/bangshim)](https://pypi.org/project/bangshim)
@@ -78,5 +78,6 @@ See [Makefile](Makefile) for more information
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
 
 
