@@ -81,7 +81,8 @@ def bangshim(script_name :str, dry_run :bool, verbose: bool, no_clobber :bool, q
         else:
             logging.warning(f"{shim_confg_path} or {shim_exe_path} already exists, overwriting...")
 
-    shim_config = generate_shim_config(interpreter_path, args+[str(script_path_abs),])
+    args.append( script_path_abs.as_posix() ) # Use unix for better compatbility for MSYS2
+    shim_config = generate_shim_config(interpreter_path, args)
 
     if dry_run:
         print(f"Wrtting these content to {shim_confg_path}")
