@@ -1,12 +1,12 @@
 {
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Make scripts with shebang executable in Windows by adding shim",
     "homepage": "https://github.com/Winterreisender/bangshim",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Winterreisender/bangshim/releases/download/v0.1.1/bangshim.exe",
-            "hash": "sha256:918d0732a4b3025ac15d06a542c3591eafbf1b98125db5c8f7a8f46fb92c99f8"
+            "url": "https://github.com/Winterreisender/bangshim/releases/download/v0.2.0/bangshim.exe",
+            "hash": "sha256:b16c7bc24a5bfcecde33daeafe49f8fa537c27a4309593dd5be4e14da67210b2"
         }
     },
     "bin": "bangshim.exe",
